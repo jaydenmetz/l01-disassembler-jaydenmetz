@@ -52,7 +52,7 @@ public class Halfword {
 	}
 
 	/**
-	 * Get the data of the half-word.
+	 * .
 	 * 
 	 * @return
 	 */
