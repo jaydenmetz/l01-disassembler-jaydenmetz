@@ -27,7 +27,7 @@ public class HexFile {
 	 * @throws FileNotFoundException
 	 */
 	public HexFile(String hexFileName) throws FileNotFoundException {
-		/* Your code here */
+		ArrayList<String> hexFile = new ArrayList<String>();
 	}
 
 	/**
