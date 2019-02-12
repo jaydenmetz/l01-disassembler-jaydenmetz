@@ -86,7 +86,7 @@ public class HexFile {
 	 * @return Next halfword.
 	 */
 	public Halfword getNextHalfword() {
-		/* Your code here */
+		
 		return null;
 	}
 }
