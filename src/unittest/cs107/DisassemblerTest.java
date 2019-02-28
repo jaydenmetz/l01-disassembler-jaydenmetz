@@ -62,7 +62,7 @@ public class DisassemblerTest {
 		studentTotal += 1;
 		assertEquals("Record item \"AAAA\" isn't extracted properly.", 9314, hf.getAddressOfRecord(hexRecord));
 		studentTotal += 1;
-		assertEquals("Record item \"TT\" isn't extracted properly.", 0, hf.getRecordType(hexRecord));
+		assertEquals("Record item \"TT\" isn't extracted properly.", 00, hf.getRecordType(hexRecord));
 		studentTotal += 1;
 	}
 	

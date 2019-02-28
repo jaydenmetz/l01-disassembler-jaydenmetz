@@ -13,9 +13,10 @@ package edu.sbcc.cs107;
  *
  */
 public class Halfword {
-	private int address;
-	private int data;
-
+	private int address = 0;
+	private int data = 0;
+	private String hexData = "";
+	private Boolean inHex = false;
 	/**
 	 * Constructor for a halfword.
 	 * 
@@ -26,7 +27,11 @@ public class Halfword {
 		this.address = address;
 		this.data = data;
 	}
-
+	public Halfword(int address, String data) {
+		this.address = address;
+		this.hexData = data;
+		inHex = true;
+	}
 	/**
 	 * toString method.
 	 * 
@@ -39,7 +44,11 @@ public class Halfword {
 	 */
 	@Override
 	public String toString() {
-		return makeAHexNum(address, 8) + " " + makeAHexNum(data, 4);
+		if (!inHex) {
+			return makeAHexNum(address, 8) + " " + makeAHexNum(data, 4);
+		} else {
+			return makeAHexNum(address, 8) + " " + hexData;
+		}
 	}
 
 	/**
@@ -61,6 +70,7 @@ public class Halfword {
 	}
 
 	public String makeAHexNum(int num, int numDigits) {
+		
 		String result = "";
 		int value = 0;
 		
