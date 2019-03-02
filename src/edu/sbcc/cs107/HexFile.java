@@ -25,7 +25,6 @@ public class HexFile {
 	private int dataBytes = 0;
 	private int address = 0;
 	private int recordType = 0;
-	private int data = 0;
 	private int fileType = 10;
 
 	Halfword last = null;
@@ -50,6 +49,7 @@ public class HexFile {
 			hexFile.add(lineOfCode);
 
 			fileType = getRecordType(lineOfCode);
+
 			int addr = getAddressOfRecord(lineOfCode);
 
 			if (fileType == 0) {
@@ -108,14 +108,15 @@ public class HexFile {
 	}
 
 	public void getHalfwords(int addr, String record) {
-		
+
 		String first, last = "";
 		for (int i = 9; i + 4 < record.length(); i += 4) {
 			last = record.substring(i, i + 2);
-			first = record.substring(i+2, i + 4);
+			first = record.substring(i + 2, i + 4);
 			
-			Halfword h = new Halfword(addr, String.format("%2s%2s", first, last));
-			halfwordList.add(h);
+				Halfword h = new Halfword(addr, String.format("%2s%2s", first, last));
+				halfwordList.add(h);
+		
 			addr += 2;
 		}
 
@@ -138,30 +139,11 @@ public class HexFile {
 	public Halfword getNextHalfword() {
 		Halfword toReturn = null;
 
-		if (index == halfwordList.size()) {
-			toReturn = halfwordList.get(index);
-			index = 0;
-		} else {
-			toReturn = halfwordList.get(index);
-			index++;
-		}
-
+		toReturn = halfwordList.get(index);
+		index++;
+		
 		return toReturn;
 	}
 
-	public String changeHexToBinary(String hex) {
-		String result = "";
-
-		for (int i = 0; i < hex.length(); i++) {
-			String charAt = hex.substring(i, i + 1);
-
-			switch (charAt) {
-
-			}
-
-		}
-
-		return "";
-	}
 
 }

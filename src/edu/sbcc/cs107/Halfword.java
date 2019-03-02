@@ -17,6 +17,7 @@ public class Halfword {
 	private int data = 0;
 	private String hexData = "";
 	private Boolean inHex = false;
+
 	/**
 	 * Constructor for a halfword.
 	 * 
@@ -27,11 +28,13 @@ public class Halfword {
 		this.address = address;
 		this.data = data;
 	}
+
 	public Halfword(int address, String data) {
 		this.address = address;
 		this.hexData = data;
 		inHex = true;
 	}
+
 	/**
 	 * toString method.
 	 * 
@@ -66,21 +69,30 @@ public class Halfword {
 	 * @return
 	 */
 	public int getData() {
+if (inHex) {
+	return Integer.valueOf(hexData,16);
+}
 		return data;
+
 	}
 
+	public Boolean isInHex() {
+		return inHex;
+	}
+	
+
 	public String makeAHexNum(int num, int numDigits) {
-		
+
 		String result = "";
 		int value = 0;
-		
+
 		while (num != 0) {
 			if (num > 15) {
 				value = num % 16;
 			} else {
 				value = num;
 			}
-			
+
 			if (value < 10) {
 				result = value + result.substring(0);
 			} else {
