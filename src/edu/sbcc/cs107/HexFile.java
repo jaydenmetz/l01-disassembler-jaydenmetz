@@ -44,9 +44,9 @@ public class HexFile {
 
 		String lineOfCode = "";
 
+		// Loading the Hexfile arraylist and getting the halfwords one line at a time
 		while (sc.hasNextLine()) {
 			lineOfCode = sc.nextLine();
-			hexFile.add(lineOfCode);
 
 			fileType = getRecordType(lineOfCode);
 
@@ -107,16 +107,19 @@ public class HexFile {
 		return recordType;
 	}
 
+	// Getting halfwords out of one line of the file
 	public void getHalfwords(int addr, String record) {
 
 		String first, last = "";
 		for (int i = 9; i + 4 < record.length(); i += 4) {
+
+			// switching order because it's little-endian
 			last = record.substring(i, i + 2);
 			first = record.substring(i + 2, i + 4);
-			
-				Halfword h = new Halfword(addr, String.format("%2s%2s", first, last));
-				halfwordList.add(h);
-		
+
+			Halfword h = new Halfword(addr, String.format("%2s%2s", first, last));
+			halfwordList.add(h);
+
 			addr += 2;
 		}
 
@@ -141,9 +144,8 @@ public class HexFile {
 
 		toReturn = halfwordList.get(index);
 		index++;
-		
+
 		return toReturn;
 	}
-
 
 }

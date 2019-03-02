@@ -29,6 +29,7 @@ public class Halfword {
 		this.data = data;
 	}
 
+	// If Hex data is too big for an int
 	public Halfword(int address, String data) {
 		this.address = address;
 		this.hexData = data;
@@ -69,17 +70,17 @@ public class Halfword {
 	 * @return
 	 */
 	public int getData() {
-if (inHex) {
-	return Integer.valueOf(hexData,16);
-}
+		if (inHex) {
+			return Integer.valueOf(hexData, 16);
+		}
 		return data;
 
 	}
-
+	
+	//To find if Halfword has an int or String for data
 	public Boolean isInHex() {
 		return inHex;
 	}
-	
 
 	public String makeAHexNum(int num, int numDigits) {
 
@@ -121,6 +122,8 @@ if (inHex) {
 			}
 			num = num / 16;
 		}
+		
+		//
 		while (result.length() < numDigits) {
 			result = "0" + result;
 		}

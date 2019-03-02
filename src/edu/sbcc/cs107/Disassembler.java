@@ -25,6 +25,8 @@ public class Disassembler {
 	public String getRegister(Halfword hw, int lsBitPosition, int msBitPosition) {
 
 		String binary = Integer.toBinaryString(hw.getData());
+
+		// fill with leading zeros
 		while (binary.length() < 16) {
 			binary = "0" + binary;
 		}
@@ -47,6 +49,8 @@ public class Disassembler {
 
 	public String getImmediate(Halfword hw, int lsBitPosition, int msBitPosition) {
 		String binary = Integer.toBinaryString(hw.getData());
+
+		// fill with leading zeros
 		while (binary.length() < 16) {
 			binary = "0" + binary;
 		}
@@ -70,17 +74,14 @@ public class Disassembler {
 		String operation = "";
 		String firstCommand = "";
 		String secondCommand = "";
-		String thirdCommand = "";
-		
+
 		String[] nameArr = { "ADCS", "ADDS", "CMN", "LDRSB", "MOVS", "MOVS", "REV", "B" };
-		String[] valArr = { "0100000101", "0001110", "0100001011", "0101011", "00100", "0000000000", "1011101000", "1110011111111110" };
-		
-		String binary;
-		if (hw.isInHex()) {
-			binary = Integer.toBinaryString(hw.getData());
-		} else {
-			binary = Integer.toBinaryString(hw.getData());
-		}
+		String[] valArr = { "0100000101", "0001110", "0100001011", "0101011", "00100", "0000000000", "1011101000",
+				"1110011111111110" };
+
+		String binary = Integer.toBinaryString(hw.getData());
+
+		// fill with leading zeros
 		while (binary.length() < 16) {
 			binary = "0" + binary;
 		}
@@ -88,34 +89,44 @@ public class Disassembler {
 		for (int i = 0; i < nameArr.length; i++) {
 
 			if (binary.substring(0, valArr[i].length()).equals(valArr[i])) {
-				
+
+				// if ADCS, CMN, MOVS(0000000000), or REV
 				if (i == 0 || i == 2 || i == 5 || i == 6) {
 					operation = nameArr[i];
 					firstCommand = getRegister(hw, 0, 2) + ", ";
 					secondCommand = getRegister(hw, 3, 5);
 
+				// if ADDS
 				} else if (i == 1) {
 					operation = nameArr[i];
 					firstCommand = getRegister(hw, 0, 2) + ", ";
 					secondCommand = getRegister(hw, 3, 5) + ", " + getImmediate(hw, 6, 8);
+
+				// if LDRSB
 				} else if (i == 3) {
 					operation = nameArr[i];
 					firstCommand = getRegister(hw, 0, 2) + ", ";
 					secondCommand = "[" + getRegister(hw, 3, 5) + ", " + getRegister(hw, 6, 8) + "]";
+
+				// if MOVS(00100)
 				} else if (i == 4) {
 					operation = nameArr[i];
 					firstCommand = getRegister(hw, 8, 10) + ", ";
 					secondCommand = getImmediate(hw, 0, 7);
+
+				// if End Of File
 				} else if (i == 7) {
 					operation = nameArr[i];
 					firstCommand = ".";
-				} 
+					
+					return String.format("%-5s    %-1s", operation, firstCommand);
+				}
 
 				break;
 			}
 		}
 
-		return String.format("%-5s    %-4s", operation, firstCommand + secondCommand) ;
+		return String.format("%-5s    %-4s", operation, firstCommand + secondCommand);
 	}
 
 }
