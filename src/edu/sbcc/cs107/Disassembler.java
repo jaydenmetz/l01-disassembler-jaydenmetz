@@ -25,7 +25,7 @@ public class Disassembler {
 	public String getRegister(Halfword hw, int lsBitPosition, int msBitPosition) {
 
 		String binary = Integer.toBinaryString(hw.getData());
-
+		
 		// fill with leading zeros
 		while (binary.length() < 16) {
 			binary = "0" + binary;
